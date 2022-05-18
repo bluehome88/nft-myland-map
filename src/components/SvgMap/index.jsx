@@ -96,7 +96,7 @@ export default function SvgMap(props) {
       </Button>
 
       <div>
-        {!props.loading && <UncontrolledReactSVGPanZoom
+        {!props.loading && props.nftTokens && <UncontrolledReactSVGPanZoom
           ref={Viewer}
           //defaultTool="pan"
           background="#CCC"

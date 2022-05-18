@@ -16,6 +16,7 @@
     "antd": "^4.19.3",
     "ethers": "^5.6.2",
     "moment": "^2.29.3",
+    "ol": "^6.14.1",
     "react": "^17.0.2",
     "react-color-palette": "^6.2.0",
     "react-dom": "^17.0.2",

@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import Web3Context from "./store/web3Context";
 
 import {
@@ -9,7 +9,7 @@ import {
 } from "react-router-dom";
 
 import "antd/dist/antd.css";
-import { Layout, Typography } from "antd";
+import { Button, Layout, Typography } from "antd";
 
 import Home from "./scenes/Home";
 
@@ -62,6 +62,7 @@ const styles = {
 
 function App() {
   const {
+    initWeb3Modal,
     web3,
     signer,
     account,
@@ -74,23 +75,23 @@ function App() {
         <div style={styles.header}>
           <div style={styles.headerContainer}>
             <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-              <Title style={{ lineHeight: '35px', margin: 0 }} level={5}>PPfinance</Title>
+              <Title style={{ lineHeight: '35px', margin: 0 }} level={5}></Title>
             </Link>
             <div style={styles.rightHeader}>
-              {account && <p style={styles.accountBox}>
+              {/* {account && <p style={styles.accountBox}>
                 {account.network.name} - {account.network.chainId}
-              </p>}
+              </p>} */}
               {account && <p style={styles.accountBox}>
                 {account.address.slice(0, 5) + '...' + account.address.slice(account.address.length - 5, account.address.length)}
               </p>}
-              <p style={styles.accountBox}>
-                <a style={{ color: 'white' }} target="_blank" href="https://twitter.com/p_pfinance">Twitter</a>
-              </p>
+              {!account &&
+                <Button type="primary" style={{ margin: '10px auto', maxWidth: '180px' }} onClick={initWeb3Modal}>Connect your Wallet</Button>
+              }
             </div>
           </div>
         </div>
 
-        <div style={styles.content}>
+        <div style={styles.content} >
           <Switch>
             <Route exact path="/">
               <Home isLogged={isLogged} />
@@ -101,10 +102,6 @@ function App() {
           </Switch>
         </div>
       </Router>
-      {!isLogged && <Footer style={{ textAlign: "center" }}>
-        <Text style={{ display: "block" }}>Built at ETHAmsterdam 2022</Text>
-        <Text style={{ display: "block" }}>Find us on <a target="_blank" href="https://github.com/VBoureaud/PPfinance">Github</a></Text>
-      </Footer>}
     </Layout>
   );
 }
