@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
-import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
+// import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
 import WalletConnect from "@walletconnect/web3-provider";
 
-import config from "../config.js";
+// import config from "../config.js";
 
 import NftContractArtifact from "../contracts/NftContract.json";
 import NftContractAddress from "../contracts/NftContract_address.json";
@@ -189,7 +189,7 @@ export const Web3ContextProvider = (props) => {
         try {
             //if (!nftPrice) return false;
             setLoadingBuy(true);
-            const possiblePurchasable = await nftContract.checkPixelPurchasableTime(tokenId);
+            // const possiblePurchasable = await nftContract.checkPixelPurchasableTime(tokenId);
             const weiPrice = utils.parseEther(nftPrice);
             const tx = await nftContract.purchasePixel(tokenId, color, { value: weiPrice });
 

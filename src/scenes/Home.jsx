@@ -14,18 +14,18 @@ import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
 // import VectorSource from 'ol/source/Vector'
-import XYZ from 'ol/source/XYZ'
+// import XYZ from 'ol/source/XYZ'
 import {transform} from 'ol/proj'
 import {toStringXY} from 'ol/coordinate';
 import Draw, { createBox } from "ol/interaction/Draw";
-import { defaults as defaultControls } from "ol/control";
+// import { defaults as defaultControls } from "ol/control";
 import { OSM, Vector as VectorSource, TileDebug } from "ol/source";
 
 function Home(props) {
 
   // set intial state
   const [ map, setMap ] = useState()
-  const [ featuresLayer, setFeaturesLayer ] = useState()
+  // const [ featuresLayer, setFeaturesLayer ] = useState()
   const [ selectedCoord , setSelectedCoord ] = useState()
 
   // pull refs
@@ -73,7 +73,7 @@ function Home(props) {
 
     // save map and vector layer references to state
     setMap(initialMap)
-    setFeaturesLayer(initalFeaturesLayer)
+    // setFeaturesLayer(initalFeaturesLayer)
 
     initialMap.addInteraction(new Draw({
       source: sourceLayer,

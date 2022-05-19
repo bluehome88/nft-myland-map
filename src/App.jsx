@@ -13,8 +13,7 @@ import { Button, Layout, Typography } from "antd";
 
 import Home from "./scenes/Home";
 
-const { Footer } = Layout;
-const { Text, Title } = Typography;
+const { Title } = Typography;
 
 const styles = {
   content: {
