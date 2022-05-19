@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { ethers, utils } from "ethers";
 import Web3Modal from "web3modal";
 import CoinbaseWalletSDK from "@coinbase/wallet-sdk";
@@ -19,10 +19,10 @@ const Web3Context = React.createContext({
     loadingCount: false,
     openSeaLink: null,
 
-    initWeb3Modal: () => {},
-    getPixelPrice: () => {},
-    countLifePixel: () => {},
-    purchasePixel: () => {},
+    initWeb3Modal: () => { },
+    getPixelPrice: () => { },
+    countLifePixel: () => { },
+    purchasePixel: () => { },
 });
 
 export const Web3ContextProvider = (props) => {
@@ -38,29 +38,30 @@ export const Web3ContextProvider = (props) => {
     const [nftPrice, setNftPrice] = useState(0);
     const [nftCount, setNftCount] = useState(0);
 
-    useEffect(() => {
-        const initUrlWeb3 = async () => {
-            setLoading(true)
-            try {
-                const provider = new ethers.providers.JsonRpcProvider(config.PROD.RPC);
-                setWeb3(provider);
-                console.log("No web3 instance injected, using Local web3.");
-                initContracts(provider);
-            } catch (e) {
-                console.log(e);
-            } finally {
-                setLoading(false)
-            }
-        }
+    // useEffect(() => {
+    //     const initUrlWeb3 = async () => {
+    //         setLoading(true)
+    //         try {
+    //             const provider = new ethers.providers.JsonRpcProvider(config.PROD.RPC);
 
-        !web3 && initUrlWeb3()
-    }, [web3]);
+    //             setWeb3(provider);
+    //             console.log("No web3 instance injected, using Local web3.");
+    //             initContracts(provider);
+    //         } catch (e) {
+    //             console.log(e);
+    //         } finally {
+    //             setLoading(false)
+    //         }
+    //     }
+
+    //     !web3 && initUrlWeb3()
+    // }, [web3]);
 
     useEffect(() => {
         if (window.ethereum) {
-           window.ethereum.on('accountsChanged', accounts => window.location.reload())
-           window.ethereum.on('chainChanged', () => window.location.reload())
-           //window.ethereum.on('connect', (connectInfo) => { console.log({connectInfo}); })
+            window.ethereum.on('accountsChanged', accounts => window.location.reload())
+            window.ethereum.on('chainChanged', () => window.location.reload())
+            //window.ethereum.on('connect', (connectInfo) => { console.log({connectInfo}); })
         }
     }, [])
 
@@ -94,12 +95,13 @@ export const Web3ContextProvider = (props) => {
             };
 
             const web3Modal = new Web3Modal({
+                network: "matic",
                 cacheProvider: false,// optional
                 providerOptions // required
             });
 
-            const instance = await web3Modal.connect();
-            const provider = new ethers.providers.Web3Provider(instance);
+            const connected = await web3Modal.connect();
+            const provider = new ethers.providers.Web3Provider(connected);
             const network = await provider.getNetwork();
             const signer = provider.getSigner();
             const balance = await signer.getBalance();
@@ -115,12 +117,48 @@ export const Web3ContextProvider = (props) => {
             setSigner(signer);
             setAccount(newAcc);
             initContracts(provider);
+            await switchNetwork(connected)
         } catch (e) {
             console.log(e);
         } finally {
             setLoading(false)
         }
     }
+
+    const switchNetwork = async (inst) => {
+        try {
+            
+            await inst.request({
+                method: "wallet_switchEthereumChain",
+                params: [{ chainId: utils.hexlify(137) }],
+            });
+        } catch (switchError) {
+            console.log(switchError)
+            // This error code indicates that the chain has not been added to MetaMask.
+            if (switchError.code === 4902) {
+                try {
+                    await inst.request({
+                        method: "wallet_addEthereumChain",
+                        params: [
+                            {
+                                chainId: utils.hexlify(137),
+                                chainName: "Polygon",
+                                rpcUrls: ["https://polygon-rpc.com/"],
+                                blockExplorerUrls: ["https://polygonscan.com/"],
+                                nativeCurrency: {
+                                    name: "MATIC",
+                                    Symbol: "MATIC",
+                                    decimals: 18
+                                }
+                            },
+                        ],
+                    });
+                } catch (addError) {
+                    throw addError;
+                }
+            }
+        }
+    };
 
     const countLifePixel = async (tokenId) => {
         try {
@@ -154,7 +192,7 @@ export const Web3ContextProvider = (props) => {
             const possiblePurchasable = await nftContract.checkPixelPurchasableTime(tokenId);
             const weiPrice = utils.parseEther(nftPrice);
             const tx = await nftContract.purchasePixel(tokenId, color, { value: weiPrice });
-            
+
             // todo manage errors
             tx.wait().then(() => {
                 setLoadingBuy(false);

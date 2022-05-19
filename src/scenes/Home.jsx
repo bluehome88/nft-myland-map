@@ -49,24 +49,21 @@ function Home(props) {
     const initialMap = new Map({
       target: mapElement.current,
       layers: [
-        
-        // USGS Topo
-        // new TileLayer({
-        //   source: new XYZ({
-        //     url: 'https://basemap.nationalmap.gov/arcgis/rest/services/USGSTopo/MapServer/tile/{z}/{y}/{x}',
-        //   })
-        // }),
-
-        // Google Maps Terrain
         new TileLayer({
           source: new OSM()
+        }),
+        new TileLayer({
+          source: new TileDebug()
         }),
         initalFeaturesLayer
       ],
       view: new View({
+        minZoom: 3,
+        maxZoom: 11,
         projection: 'EPSG:3857',
         center: [0, 0],
-        zoom: 2
+        zoom: 2,
+        extent: new View().getProjection().getExtent()
       }),
       controls: []
     })

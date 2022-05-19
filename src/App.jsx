@@ -75,12 +75,12 @@ function App() {
         <div style={styles.header}>
           <div style={styles.headerContainer}>
             <Link to="/" style={{ display: "flex", alignItems: "center" }}>
-              <Title style={{ lineHeight: '35px', margin: 0 }} level={5}></Title>
+              <Title style={{ lineHeight: '35px', margin: 0 }} level={5}>Logo</Title>
             </Link>
             <div style={styles.rightHeader}>
-              {/* {account && <p style={styles.accountBox}>
+              {account && <p style={styles.accountBox}>
                 {account.network.name} - {account.network.chainId}
-              </p>} */}
+              </p>}
               {account && <p style={styles.accountBox}>
                 {account.address.slice(0, 5) + '...' + account.address.slice(account.address.length - 5, account.address.length)}
               </p>}

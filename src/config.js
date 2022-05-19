@@ -13,8 +13,8 @@ const data = {
     "STABLE_DECIMAL": '6',
   },
   "PROD": {
-    "CHAIN_ID": 4,
-    "RPC": "https://rinkeby.infura.io/v3/",
+    "CHAIN_ID": 80001,
+    "RPC": "https://rpc-mumbai.matic.today",
     "NATIVE_DECIMAL": '18',
     "STABLE_DECIMAL": '6',
   },
