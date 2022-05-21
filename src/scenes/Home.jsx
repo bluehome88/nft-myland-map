@@ -32,8 +32,8 @@ function Home(props) {
   useEffect( () => {
     const points = [];
     let count = 0;
-    for (let i = -20000000; i <= 20000000; i += 2000000) {
-      for (let j = -20000000; j <= 20000000; j += 2000000) {
+    for (let i = -20000000; i <= 20000000; i += 200000) {
+      for (let j = -20000000; j <= 20000000; j += 200000) {
         points[count] = new Feature({
           'geometry': new Point([i, j])
         });
