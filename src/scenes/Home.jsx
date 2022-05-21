@@ -1,35 +1,58 @@
 import "./style.css"
-// import { Button, Typography, message } from "antd";
-import React, { useState, useEffect, useRef } from 'react';
-// import Web3Context from "../store/web3Context";
-// import Web2Context from "../store/web2Context";
-// import SvgMap from "../components/SvgMap";
-// import NftView from "../components/NftView";
-// import { coordToTokenId } from "../utils";
-// import config from "../config.js";
-
-
+import { useState, useEffect, useRef } from 'react';
 import Map from 'ol/Map'
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector'
-// import VectorSource from 'ol/source/Vector'
-// import XYZ from 'ol/source/XYZ'
-import {transform} from 'ol/proj'
 import {toStringXY} from 'ol/coordinate';
 import Draw, { createBox } from "ol/interaction/Draw";
-// import { defaults as defaultControls } from "ol/control";
-import { OSM, Vector as VectorSource, TileDebug } from "ol/source";
+import { Snap } from 'ol/interaction';
+import Feature from 'ol/Feature';
+import { Circle as CircleStyle, Fill, Style } from 'ol/style';
+import { Point } from 'ol/geom';
+import { OSM, Vector as VectorSource } from "ol/source";
+import NftView from "../components/NftView";
+
+// import Web3Context from "../store/web3Context";
+// import Web2Context from "../store/web2Context";
+// import SvgMap from "../components/SvgMap";
+// import { coordToTokenId } from "../utils";
+// import config from "../config.js";
+// import { Button, Typography, message } from "antd";
 
 function Home(props) {
   const [ map, setMap ] = useState()
   const [ selectedCoord , setSelectedCoord ] = useState()
+  const [visible, setVisible] = useState(false)
+
   const mapElement = useRef()
   const mapRef = useRef()
   mapRef.current = map
   
   useEffect( () => {
-    const sourceLayer = new VectorSource({ wrapX: false });
+    const points = [];
+    let count = 0;
+    for (let i = -20000000; i <= 20000000; i += 2000000) {
+      for (let j = -20000000; j <= 20000000; j += 2000000) {
+        points[count] = new Feature({
+          'geometry': new Point([i, j])
+        });
+        count++;
+      }
+    }
+    const pointsSource = new VectorSource({
+      features: points,
+      wrapX: false,
+    });
+    const pointsLayer = new VectorLayer({
+      source: pointsSource,
+      style: new Style({
+        image: new CircleStyle({
+          radius: 1,
+          fill: new Fill({ color: '#ff0000' }),
+        }),
+      })
+    });
 
     const initialMap = new Map({
       target: mapElement.current,
@@ -37,44 +60,64 @@ function Home(props) {
         new TileLayer({
           source: new OSM()
         }),
-        new TileLayer({
-          source: new TileDebug()
-        }),
-        new VectorLayer({
-          source: sourceLayer
-        })
+        pointsLayer
       ],
       view: new View({
         minZoom: 3,
         maxZoom: 11,
-        projection: 'EPSG:3857',
         center: [0, 0],
-        zoom: 2,
+        zoom: 3,
         extent: new View().getProjection().getExtent()
       }),
       controls: []
     })
-    initialMap.on('click', handleMapClick)
-    initialMap.addInteraction(new Draw({
-      source: sourceLayer,
+    setMap(initialMap)
+    initialMap.on('pointermove', handleMapClick)
+
+    const draw = new Draw({
+      source: pointsSource,
       type: "Circle",
       geometryFunction: createBox()
-    }));
-    
-    setMap(initialMap)
+    })
+    draw.on('drawend', function (ev) {
+      const features = pointsLayer.getFeatures()
+      var lastFeature = features[features.length - 1];
+      pointsLayer.removeFeature(lastFeature);
+      console.log(ev)
+      setVisible(true)
+    })
+    initialMap.addInteraction(draw);
+
+    const snap = new Snap({
+      source: pointsSource,
+      pixelTolerance: 100
+    });
+    initialMap.addInteraction(snap);   
   },[])
 
   const handleMapClick = (event) => {
     const clickedCoord = mapRef.current.getCoordinateFromPixel(event.pixel);
-    const transormedCoord = transform(clickedCoord, 'EPSG:3857', 'EPSG:4326')
-    setSelectedCoord( transormedCoord )
+    setSelectedCoord(clickedCoord)
   }
 
-  return (      
+  return (
     <div className='App'>
       <div ref={mapElement} className="map-container"></div>
       <div className="clicked-coord-label">
         <p>{ (selectedCoord) ? toStringXY(selectedCoord, 5) : '' }</p>
+        {props.isLogged && visible &&
+          <NftView
+            tokenId={1}
+            loading={1}
+            visible={visible}
+            setVisible={setVisible}
+            confirmBuy={console.log(123)}
+            nftPrice={1}
+            loadingPrice={1}
+            nftCount={2}
+            loadingCount={1}
+            openSeaLink="12"
+          />}
       </div>
     </div>
   ) 
