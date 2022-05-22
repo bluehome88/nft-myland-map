@@ -89,13 +89,17 @@ export const Web3ContextProvider = (props) => {
                 walletconnect: {
                     package: WalletConnect,
                     options: {
-                        infuraId: 'ebc3a388e39840dc8313350226433c1e'
-                    }
+                        infuraId: '8043bb2cf99347b1bfadfb233c5325c0',
+                        // bridge: "https://bridge.myhostedserver.com"
+                    },
+                    // rpc: {
+                    //     137: "https://polygon-mainnet.infura.io/v3/8043bb2cf99347b1bfadfb233c5325c0"
+                    // }
                 }
             };
 
             const web3Modal = new Web3Modal({
-                network: "matic",
+                network: "rinkeby",
                 cacheProvider: false,// optional
                 providerOptions // required
             });
@@ -117,7 +121,7 @@ export const Web3ContextProvider = (props) => {
             setSigner(signer);
             setAccount(newAcc);
             initContracts(provider);
-            await switchNetwork(connected)
+            // await switchNetwork(connected)
         } catch (e) {
             console.log(e);
         } finally {
@@ -143,7 +147,7 @@ export const Web3ContextProvider = (props) => {
                             {
                                 chainId: utils.hexlify(137),
                                 chainName: "Polygon",
-                                rpcUrls: ["https://polygon-rpc.com/"],
+                                rpcUrls: ["https://matic-mainnet.chainstacklabs.com/"],
                                 blockExplorerUrls: ["https://polygonscan.com/"],
                                 nativeCurrency: {
                                     name: "MATIC",
