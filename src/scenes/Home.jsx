@@ -3,7 +3,6 @@ import 'ol/ol.css';
 import { useState, useEffect, useRef } from 'react';
 
 import Map from 'ol/Map'
-import Collection from 'ol/Collection';
 import View from 'ol/View'
 import TileLayer from 'ol/layer/Tile'
 import VectorLayer from 'ol/layer/Vector';
