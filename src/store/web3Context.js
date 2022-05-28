@@ -91,7 +91,7 @@ export const Web3ContextProvider = (props) => {
                 walletconnect: {
                     package: WalletConnect,
                     options: {
-                        infuraId: '8043bb2cf99347b1bfadfb233c5325c0',
+                        infuraId: 'e7cb82aa6e294d3a861cabaf61204f84',
                         // bridge: "https://bridge.myhostedserver.com"
                     },
                     // rpc: {
