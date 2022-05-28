@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ColorPicker, useColor } from "react-color-palette";
 import { Steps, Modal, Button, Typography } from 'antd';
-import Icon, { LoadingOutlined } from '@ant-design/icons';
+import Icon, { ConsoleSqlOutlined, LoadingOutlined } from '@ant-design/icons';
 import "react-color-palette/lib/css/styles.css";
 import "./NftView.css";
-
+import Web3Context from "../store/web3Context";
 const { Step } = Steps;
 
 // props.tokenId
@@ -18,9 +18,14 @@ const { Step } = Steps;
 // props.loadingCount
 // props.openSeaLink
 function NftView(props) {
+	const {
+		buyLands,
+		account
+	  } = useContext(Web3Context);
 	const [color, setColor] = useColor("hex", "#121212");
 	const [isBuy, setIsBuy] = React.useState(false);
 	const [current, setCurrent] = React.useState(0);
+	const { rect } = props
 	const next = () => {
 		setCurrent(current + 1);
 	};
@@ -35,7 +40,7 @@ function NftView(props) {
 			color.rgb.g,
 			color.rgb.b,
 		];
-		await props.confirmBuy(rgbArr);
+		// await props.confirmBuy(rgbArr);
 	}
 
 	const steps = [
@@ -53,12 +58,21 @@ function NftView(props) {
 		},
 	];
 
+	const doMint = () => {
+		buyLands(rect[0], rect[1], rect[2], rect[3], (res) => {
+			if (res)
+				alert('Success')
+			else
+				alert('Failed')
+		})
+	}
+
 	return (
 		<Modal
-			title={'Token n°' + props.tokenId}
+			title={'Press Mint Button to buy selectd area'}
 			style={{
 				right: 0,
-				width: '50%',
+				width: '20%',
 				position: 'fixed',
 				top: 0,
 				bottom: 0,
@@ -68,7 +82,9 @@ function NftView(props) {
 			onCancel={() => props.setVisible(false)}
 			footer={[]}
 		>
-			{props.loading && <div>
+			<p>([{props.rect[0]}, {props.rect[1]}], [{props.rect[2]}, {props.rect[3]}])</p>
+			<button onClick={doMint}>Mint</button>
+			{/* {props.loading && <div>
 				<Icon component={LoadingOutlined} />
 				<Typography>Careful, processing on chain, can take severals seconds...</Typography>
 			</div>}
@@ -115,7 +131,7 @@ function NftView(props) {
 						</>
 					}
 				</>
-			}
+			} */}
 		</Modal>
 	);
 }

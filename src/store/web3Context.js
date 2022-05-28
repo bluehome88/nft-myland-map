@@ -8,6 +8,8 @@ import WalletConnect from "@walletconnect/web3-provider";
 
 import NftContractArtifact from "../contracts/NftContract.json";
 import NftContractAddress from "../contracts/NftContract_address.json";
+import { ConsoleSqlOutlined } from "@ant-design/icons";
+import { type } from "os";
 
 const Web3Context = React.createContext({
     web3: null,
@@ -22,7 +24,7 @@ const Web3Context = React.createContext({
     initWeb3Modal: () => { },
     getPixelPrice: () => { },
     countLifePixel: () => { },
-    purchasePixel: () => { },
+    buyLands: () => { },
 });
 
 export const Web3ContextProvider = (props) => {
@@ -69,7 +71,7 @@ export const Web3ContextProvider = (props) => {
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(
             NftContractAddress.Contract,
-            NftContractArtifact.abi,
+            NftContractArtifact,
             signer);
         setNftContract(nftContract);
         setOpenSeaLink('https://testnets.opensea.io/assets/' + NftContractAddress.Contract + '/');
@@ -187,28 +189,20 @@ export const Web3ContextProvider = (props) => {
         }
     }
 
-    // tokenId: number
-    // color: arrayOf(number) ex: [ 12, 23, 56 ]
-    const purchasePixel = async (tokenId, color, callback) => {
+    const buyLands = async (x1, y1, x2, y2, callback) => {
         try {
-            //if (!nftPrice) return false;
-            setLoadingBuy(true);
-            // const possiblePurchasable = await nftContract.checkPixelPurchasableTime(tokenId);
-            const weiPrice = utils.parseEther(nftPrice);
-            const tx = await nftContract.purchasePixel(tokenId, color, { value: weiPrice });
-
-            // todo manage errors
+            const totalSupply = (await nftContract.totalSupply()).toNumber()
+            const nftPriceinWei = await nftContract.calculatePixelPrice(totalSupply, x1, y1, x2, y2)
+            const tx = await nftContract.mint(totalSupply, x1, y1, x2, y2, { value: nftPriceinWei });
             tx.wait().then(() => {
                 setLoadingBuy(false);
                 if (callback) callback(true);
             });
-        }
-        catch (e) {
+        } catch (e) {
             if (callback) callback(false);
             setLoadingBuy(false);
         }
     }
-
 
     return (
         <Web3Context.Provider
@@ -220,7 +214,7 @@ export const Web3ContextProvider = (props) => {
                 loadingPrice,
                 loadingCount,
                 initWeb3Modal,
-                purchasePixel,
+                buyLands,
                 getPixelPrice,
                 countLifePixel,
                 nftPrice,

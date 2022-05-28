@@ -17,7 +17,7 @@ var lastCoord;
 function Home(props) {
   const [ map, setMap ] = useState()
   const [visible, setVisible] = useState(false)
-
+  const [rect, setRect] = useState(false)
   const mapElement = useRef()
   const mapRef = useRef()
   mapRef.current = map
@@ -83,6 +83,11 @@ function Home(props) {
       })
       if (!flag)
         drawSource.clear()
+      else {
+        setVisible(true)
+        const extent = ev.feature.getGeometry().getExtent()
+        setRect([Math.ceil(extent[0]/100000), Math.ceil(extent[1]/100000), Math.ceil(extent[2]/100000), Math.ceil(extent[3]/100000)])
+      }
     })
     initialMap.addInteraction(draw);
   },[])
@@ -97,12 +102,13 @@ function Home(props) {
             loading={1}
             visible={visible}
             setVisible={setVisible}
-            confirmBuy={console.log(123)}
+            // confirmBuy={console.log(11121312312)}
             nftPrice={1}
             loadingPrice={1}
             nftCount={2}
             loadingCount={1}
             openSeaLink="12"
+            rect={rect}
           />}
       </div>
     </div>
