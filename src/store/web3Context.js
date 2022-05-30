@@ -20,6 +20,7 @@ const Web3Context = React.createContext({
     loadingPrice: false,
     loadingCount: false,
     openSeaLink: null,
+    onePixelCost: null,
 
     initWeb3Modal: () => { },
     getPixelPrice: () => { },
@@ -39,6 +40,7 @@ export const Web3ContextProvider = (props) => {
     const [nftContract, setNftContract] = useState(null);
     const [nftPrice, setNftPrice] = useState(0);
     const [nftCount, setNftCount] = useState(0);
+    const [onePixelCost, setOnePixelCost] = useState(null);
 
     // useEffect(() => {
     //     const initUrlWeb3 = async () => {
@@ -67,13 +69,14 @@ export const Web3ContextProvider = (props) => {
         }
     }, [])
 
-    const initContracts = (provider) => {
+    const initContracts = async (provider) => {
         const signer = provider.getSigner();
         const nftContract = new ethers.Contract(
             NftContractAddress.Contract,
             NftContractArtifact,
             signer);
         setNftContract(nftContract);
+        setOnePixelCost(ethers.utils.formatEther(await nftContract.tokenPrice()))
         setOpenSeaLink('https://testnets.opensea.io/assets/' + NftContractAddress.Contract + '/');
     }
 
@@ -113,6 +116,7 @@ export const Web3ContextProvider = (props) => {
             const balance = await signer.getBalance();
             const address = await signer.getAddress();
             const txCount = await signer.getTransactionCount();
+
             const newAcc = {
                 balance: ethers.utils.formatEther(balance._hex),
                 address,
@@ -220,6 +224,7 @@ export const Web3ContextProvider = (props) => {
                 nftPrice,
                 nftCount,
                 account,
+                onePixelCost,
                 openSeaLink,
             }}>
             {props.children}

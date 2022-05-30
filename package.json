@@ -15,7 +15,11 @@
     "@walletconnect/web3-provider": "^1.7.5",
     "antd": "^4.19.3",
     "ethers": "^5.6.2",
+    "install": "^0.13.0",
+    "npm": "^8.11.0",
     "ol": "^6.14.1",
+    "ol-ext": "^3.2.24",
+    "openlayers-ext": "^3.1.5",
     "react": "^17.0.2",
     "react-color-palette": "^6.2.0",
     "react-dom": "^17.0.2",
@@ -51,6 +55,7 @@
     ]
   },
   "devDependencies": {
+    "@types/ol-ext": "npm:@siedlerchr/types-ol-ext@^2.0.0",
     "@types/react": "^18.0.5",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",

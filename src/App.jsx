@@ -65,6 +65,8 @@ function App() {
     web3,
     signer,
     account,
+    buyLands,
+    onePixelCost
   } = useContext(Web3Context);
   const isLogged = (web3 && signer);
 
@@ -93,7 +95,7 @@ function App() {
         <div style={styles.content} >
           <Switch>
             <Route exact path="/">
-              <Home isLogged={isLogged} />
+              <Home account={account} buyLands={buyLands} onePixelCost={onePixelCost} isLogged={isLogged} />
             </Route>
             <Route path="/nonauthenticated">
               <>Please login using the "Authenticate" button</>
