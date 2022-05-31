@@ -9,9 +9,6 @@ import VectorLayer from 'ol/layer/Vector';
 import Draw, { createBox } from "ol/interaction/Draw";
 import VectorTileLayer from 'ol/layer/VectorTile';
 import VectorTileSource from 'ol/source/VectorTile';
-// import * as Photo from 'ol-ext/style';
-import Photo from 'ol-ext/style/Photo';
-// import * as Ha fr/om 'ol-ext/style'
 import { OSM, Vector as VectorSource } from "ol/source";
 import Overlay from 'ol/Overlay';
 import MVT from 'ol/format/MVT';
@@ -29,8 +26,8 @@ import Static from "ol/source/ImageStatic";
 var lastCoord;
 const geo = [{
   "coordinates": [
-    30000,
-    434343
+    300000,
+    4343403
   ],
   "ref": "APD0004328",
   "cpost": "02440",
@@ -46,7 +43,7 @@ const geo = [{
 {
   "coordinates": [
     325003.397359,
-    50.328235
+    50000.328235
   ],
   "ref": "APD0005719",
   "cpost": "59220",
@@ -89,7 +86,6 @@ function Home(props) {
     }
   }
 
-  var styleCache = {};
   const getFeatureStyle = (feature, resolution, sel) => {
     console.log('********', feature, sel)
     if (feature.get('img')) {
@@ -170,6 +166,7 @@ function Home(props) {
     initialMap.addOverlay(infoOverlay)
 
     initialMap.on('click', (ev) => {
+      console.log(ev.coordinate)
       let pixel = initialMap.getEventPixel(ev.originalEvent);
       let ref = ''
       initialMap.forEachLayerAtPixel(pixel, (layer, rgb) => {
@@ -244,7 +241,7 @@ function Home(props) {
     draw.on('drawend', function () {
       console.log('drawend', Date.now())
     })
-    // initialMap.addInteraction(draw);
+    initialMap.addInteraction(draw);
 
     // const select = new Select({
     //   condition: click,
