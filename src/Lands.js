@@ -289,15 +289,7 @@ function Lands() {
         }
       }
     });
-    if (!accountRef.current) {
-      draw.setActive(false);
-      const timer = setInterval(() => {
-        if (accountRef.current) {
-          draw.setActive(true);
-          clearInterval(timer);
-        }
-      }, 1000);
-    }
+    draw.setActive(false)
     worldMap.addInteraction(draw);
   }, []);
 
