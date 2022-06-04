@@ -1,4 +1,5 @@
 const data = {
+  "pixelPrice": 0.001,
   "xNum": 100,
   "yNum": 100,
   "paddBox": 1,
@@ -18,6 +19,7 @@ const data = {
     "NATIVE_DECIMAL": '18',
     "STABLE_DECIMAL": '6',
   },
+  "ContractAddress": "0xb7fD730D83E141F7157440b3dA07f42947bB7F63"
 }
 
 export default data

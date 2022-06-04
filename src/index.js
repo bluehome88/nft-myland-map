@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {Web3ContextProvider} from "./store/web3Context";

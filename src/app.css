@@ -1,0 +1,42 @@
+body {
+    margin: 0;
+}
+.content {
+  display: flex;
+  justify-content: center;
+  font-family: "Roboto; sans-serif";
+  color: #041836;
+}
+.header {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  background: #fff;
+  padding: 0;
+}
+.headerContainer {
+  max-width: 1056px;
+  padding: 0 16px;
+  margin: auto;
+  display: flex;
+  height: 100%;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Roboto; sans-serif";
+}
+.rightHeader {
+  display: flex;
+  align-items: center;
+}
+.accountBox {
+  background: #333;
+  color: white;
+  padding: 0 14px;
+  box-sizing: border-box;
+  border-radius: 13px;
+  line-height: 35px;
+  letter-spacing: 1px;
+  margin-right: 2px;
+  position: relative;
+  top: 8px;
+}

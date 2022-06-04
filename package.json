@@ -2,7 +2,7 @@
   "name": "nft-map",
   "version": "0.1.0",
   "description": "",
-  "main": "index.jsx",
+  "main": "index.js",
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
     "@coinbase/wallet-sdk": "^3.0.5",
@@ -13,7 +13,6 @@
     "@types/node": "^16.11.26",
     "@types/react-dom": "^17.0.14",
     "@walletconnect/web3-provider": "^1.7.5",
-    "antd": "^4.19.3",
     "ethers": "^5.6.2",
     "install": "^0.13.0",
     "npm": "^8.11.0",
