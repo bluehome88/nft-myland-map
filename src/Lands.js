@@ -70,8 +70,8 @@ function Lands() {
       Math.abs(x1 - x2) * Math.abs(y1 - y2) * Config.pixelPrice
     ) {
       buyLandsRef.current(x1, y1, x2, y2, (res) => {
-        if (res) alert("Success");
-        else alert("Failed");
+        if (res === -1) alert("Failed");
+        else alert("Success");
       });
     } else {
       alert("Insufficient Funds");

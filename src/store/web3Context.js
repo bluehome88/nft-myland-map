@@ -132,12 +132,12 @@ export const Web3ContextProvider = (props) => {
       const tx = await nftContract.mint(totalSupply, x1, y1, x2, y2, {
         value: nftPriceinWei,
       });
-      tx.wait().then(() => {
+      tx.wait().then((res) => {
         setLoadingBuy(false);
-        if (callback) callback(true);
+        if (callback) callback(totalSupply);
       });
     } catch (e) {
-      if (callback) callback(false);
+      if (callback) callback(-1);
       setLoadingBuy(false);
     }
   };
