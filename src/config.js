@@ -19,7 +19,8 @@ const data = {
     "NATIVE_DECIMAL": '18',
     "STABLE_DECIMAL": '6',
   },
-  "ContractAddress": "0xb7fD730D83E141F7157440b3dA07f42947bB7F63"
+  "ContractAddress": "0xb7fD730D83E141F7157440b3dA07f42947bB7F63",
+  "API_URL": "http://localhost:3010/"
 }
 
 export default data
