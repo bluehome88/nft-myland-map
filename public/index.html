@@ -1,31 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="nft with openlayer"
-    />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="%PUBLIC_URL%/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="%PUBLIC_URL%/favicon-16x16.png"
-    />
-    <!-- <link rel="manifest" href="%PUBLIC_URL%/manifest.json" /> -->
-    <title>NFT with map</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="identifier-url" content="https://mynftland.io/" />
+  <meta name="title" content="My Nft Land" />
+  <meta name="description"
+    content="mynftland.io is a smartcontract based web3 platform on Ethereum and polygon blockchain with world map pixels grid. Each pixels is an ERC-721 NFT token with its location. Users have an opportunity to buy, sell, rent, and paint them to create any picture with any link and information inside." />
+  <meta name="abstract"
+    content="mynftland.io is a smartcontract based web3 platform on Ethereum and polygon blockchain with world map pixels grid. Each pixels is an ERC-721 NFT token with its location. Users have an opportunity to buy, sell, rent, and paint them to create any picture with any link and information inside." />
+  <meta name="keywords" content="nft, nfts, map, advertisement, metaverse, 메타버스, 지도, 광고, 토지구입, NFT임대, mylands," />
+  <meta name="author" content="My Nft Land" />
+  <meta name="revisit-after" content="15" />
+  <meta name="language" content="utf-8" />
+  <meta name="copyright" content="© 2022 mynftland.io" />
+  <meta name="robots" content="All" />
+  <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+  <link rel="icon" type="image/png" sizes="32x32" href="%PUBLIC_URL%/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="%PUBLIC_URL%/favicon-16x16.png" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+  <title>My Nft Land</title>
+</head>
+
+<body>
+  <noscript>You need to enable JavaScript to run this app.</noscript>
+
+  <div class="site-mobile-menu site-navbar-target">
+    <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+        <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+    </div>
+    <div class="site-mobile-menu-body"></div>
+  </div>
+
+  <div class="top-bar">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <a href="#" class=""><span class="mr-2  icon-envelope-open-o"></span> <span
+              class="d-none d-md-inline-block">info@yourdomain.com</span></a>
+          <span class="mx-md-2 d-inline-block"></span>
+          <a href="#" class=""><span class="mr-2  icon-phone"></span> <span class="d-none d-md-inline-block">1+ (234)
+              5678 9101</span></a>
+          <div class="float-right">
+            <a href="#" class=""><span class="mr-2  icon-twitter"></span> <span
+                class="d-none d-md-inline-block">Twitter</span></a>
+            <span class="mx-md-2 d-inline-block"></span>
+            <a href="#" class=""><span class="mr-2  icon-facebook"></span> <span
+                class="d-none d-md-inline-block">Facebook</span></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <header class="site-navbar js-sticky-header site-navbar-target" role="banner">
+    <div class="container">
+      <div class="row align-items-center position-relative">
+        <div class="site-logo">
+          <a href="index.html"><img src="logo.png" style="max-width:80%; height:auto;"></a>
+        </div>
+        <div class="col-12">
+          <nav class="site-navigation text-right ml-auto " role="navigation">
+            <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
+              <li><a href="#AboutModalLong" data-toggle="modal" data-target="#AboutModalLong">About</a></li>
+              <li><a href="#FAQModalLong" data-toggle="modal" data-target="#FAQModalLong">FAQ</a></li>
+              <li><button type="button" class="btn btn-primary btn-connect" style="border-radius: 0;">Connect your Wallet</button>
+              </li>
+            </ul>
+          </nav>
+        </div>
+        <div class="toggle-button d-inline-block d-lg-none"><a href="#"
+            class="site-menu-toggle py-5 js-menu-toggle text-black"><span class="icon-menu h3"></span></a></div>
+      </div>
+    </div>
+  </header>
+  <div id="root"></div>
+
+  <!-- About Modal -->
+  <div class="modal fade" id="AboutModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">About</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Enter the content of About later.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ Modal -->
+  <div class="modal fade" id="FAQModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">FAQ</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Enter the content of FAQ later.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
 </html>

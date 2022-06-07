@@ -294,11 +294,11 @@ function Lands() {
   }, []);
 
   return (
-    <div className="App">
+    <>
       <div ref={mapElement} className="map-container"></div>
       <div ref={buyOverlayElement} className="overlay-container"></div>
       <div ref={infoOverlayElement} className="overlay-container"></div>
-    </div>
+    </>
   );
 }
 
