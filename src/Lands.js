@@ -21,6 +21,7 @@ import Web3Context from "./store/web3Context";
 import "ol/ol.css";
 import "./lands.css";
 import Config from "./config";
+import {onMint} from "./api";
 
 const geo = [
   {
@@ -69,9 +70,16 @@ function Lands() {
       parseFloat(accountRef.current.balance) >=
       Math.abs(x1 - x2) * Math.abs(y1 - y2) * Config.pixelPrice
     ) {
-      buyLandsRef.current(x1, y1, x2, y2, (res) => {
-        if (res === -1) alert("Failed");
-        else alert("Success");
+      buyLandsRef.current(x1, y1, x2, y2, (mintedId) => {
+        console.log('++++', mintedId)
+        if (mintedId === -1) alert("Failed");
+        else {
+          alert("Success");
+          onMint(mintedId, (res) => {
+            if (res.data.result === 'success')
+              alert('Synced with backend');
+          })
+        }
       });
     } else {
       alert("Insufficient Funds");
@@ -263,10 +271,10 @@ function Lands() {
       } else {
         const extent = ev.feature.getGeometry().getExtent();
         const [x1, y1, x2, y2] = [
-          Math.ceil(extent[0] / 10000),
-          Math.ceil(extent[1] / 10000),
-          Math.ceil(extent[2] / 10000),
-          Math.ceil(extent[3] / 10000),
+          Math.ceil(extent[0] / 1250),
+          Math.ceil(extent[1] / 1250),
+          Math.ceil(extent[2] / 1250),
+          Math.ceil(extent[3] / 1250),
         ];
         if ((x1 - x2) * (y1 - y2) !== 0) {
           if (accountRef.current) {
